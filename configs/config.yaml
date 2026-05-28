@@ -1,0 +1,53 @@
+agent:
+  name: LinuxGuard-Go
+  device_name: linux-host-01
+  dashboard_addr: 127.0.0.1:8765
+
+bruteforce:
+  enabled: true
+  threshold: 5
+  window_minutes: 10
+  block_minutes: 1440
+
+firewall:
+  enabled: true
+  dry_run: false
+  rule_prefix: LinuxGuard-Go
+
+outbound:
+  enabled: true
+  mode: block
+  scan_interval_seconds: 10
+  suspicious_paths:
+    - /tmp
+    - /var/tmp
+    - /dev/shm
+    - /.cache/
+    - /Downloads/
+  blocklist:
+    - nc
+    - ncat
+    - netcat
+    - socat
+  allowlist:
+    - /usr/bin/ssh
+    - /usr/bin/curl
+    - /usr/bin/wget
+    - /usr/bin/apt
+    - /usr/bin/apt-get
+    - /usr/lib/apt/methods/http
+    - /usr/lib/apt/methods/https
+    - /usr/bin/snap
+    - /usr/bin/firefox
+    - /usr/bin/google-chrome
+    - linuxguard
+    - ssh
+    - systemd-resolved
+
+telegram:
+  enabled: false
+  bot_token: PUT_TOKEN_HERE
+  chat_id: PUT_CHAT_ID_HERE
+
+storage:
+  path: data/linuxguard.db
